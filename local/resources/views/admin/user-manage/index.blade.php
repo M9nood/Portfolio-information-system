@@ -1,0 +1,31 @@
+<?php
+use App\func as f;
+?>
+@extends('layouts.admin',['page'=>'user'])
+
+
+@section('content')
+<div class="content-wrapper">
+    <div class="page-title">
+        <div>
+           <h1><i class="fa fa-dashboard"></i> จัดการข้อมูลผู้ใช้</h1>
+            <p>งานจัดการข้อมูลของผู้ใช้งาน การกำาหนดระดับการเข้าถึงระบบ</p>
+         </div>
+         <div>
+                <ul class="breadcrumb">
+                <li><a href="{{url('/admin')}}"><i class="fa fa-home fa-lg" ></i></a></li>
+                <li><a href="#">จัดการข้อมูลผู้ใช้</a></li>
+                </ul>
+        </div>
+    </div>
+    @yield('subcontent')
+    
+</div>
+<!-- Javascripts-->
+    <script type="text/javascript" src="{{url('js/plugins/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('js/plugins/dataTables.bootstrap.min.js')}}"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+    <script type="text/javascript" src="{{url('js/plugins/jquery.form.js')}}"></script>
+    
+@endsection
+ 

@@ -57,13 +57,13 @@ class AuthController extends Controller
             $user = Socialite::driver('google')->stateless()->user();
             Session::put('avatar', $user->avatar);
 
-            $id = DB::table('users')
-                        ->select('id')
-                        ->where('email','=',strtolower($user->email))
-                        ->where('active','=','yes')
+            $u = DB::table('users')
+                        ->where('email',strtolower($user->email))
+                        ->where('active','yes')
                         ->first();
-            if(!empty($id)) {
-                Auth::loginUsingId($id->id);
+            //dd($u);
+            if(!empty($u)) {
+                Auth::loginUsingId($u->id);
                 if(Auth::user()->drive_folder_id==null){
                     $folderId =  $this->createFolder(Auth::user()->email);
                     DB::table('users')

@@ -500,7 +500,7 @@ class AdminController extends Controller
         if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             return response()->json(['error'=>'<span style="color:#ff9900"><i class="fa fa-exclamation" aria-hidden="true"></i> กรุณากรอกอีเมลแอดเดรสให้ถูกต้อง</span> ']);
         }
-        $cntemail = DB::table('users')->where('email',$request->email)->first();
+        $cntemail = DB::table('users')->where('email',strtolower($request->email))->first();
         $email = explode("@",$request->email);
         if($email[1]!="fitm.kmutnb.ac.th"){
             return response()->json(['error'=>'<span style="color:#ff9900"><i class="fa fa-exclamation" aria-hidden="true"></i> กรุณากรอกอีเมลของคณะ</span> ']);
@@ -516,13 +516,13 @@ class AdminController extends Controller
 
     public function checkOriginalEmail($uid,Request $request){
         $user = DB::table('users')->select('email')->where('id',$uid)->first();
-        if($user->email == $request->email){
+        if($user->email == strtolower($request->email)){
             return response()->json(['success'=>'']);
         }
         if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             return response()->json(['error'=>'<span style="color:#ff9900"><i class="fa fa-exclamation" aria-hidden="true"></i> กรุณากรอกอีเมลแอดเดรสให้ถูกต้อง</span> ']);
         }
-        $cntemail = DB::table('users')->where('email',$request->email)->first();
+        $cntemail = DB::table('users')->where('email',strtolower($request->email))->first();
         if(empty($cntemail))
             return response()->json(['success'=>'<span style="color:#39ac39"><i class="fa fa-check" aria-hidden="true"></i> สามรถใช้อีเมลแอดเดรสนี้ได้</span>']);
         else  return response()->json(['error'=>'<span style="color:#ff1a1a"><i class="fa fa-times" aria-hidden="true"></i> อีเมลแอดเดรสนี้ถูกใช้ในระบบแล้ว</span> ']);

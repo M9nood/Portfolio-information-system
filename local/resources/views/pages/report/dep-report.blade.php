@@ -35,12 +35,18 @@ use App\constantsValue as val;
                 <tr>
                   <td  width="25%"  style="text-align:right;padding-right:15px"><b>เลือกภาควิชา</b></td>
                   <td  colspan="3" style="padding-bottom:10px" align="left">
+                    @if(Auth::user()->user_level == "dean")
                     <select class="form-control drop-box"  name="dep" >
                           <option value="">--- เลือกภาควิชา ---</option>
                           @foreach($deps as $key => $dep)
                             <option value="{{$dep->department_id}}" @if(isset($_GET['dep']) and $_GET['dep'] ==$dep->department_id) selected @endif>{{$dep->department_name}}</option>
                           @endforeach 
+                    </select>
+                    @elseif(Auth::user()->user_level=="headofDp" or f::isOfficer())
+                      <select class="form-control drop-box"  name="dep" >
+                          <option value="{{Auth::user()->department_id}}">{{f::getDeparmentName(Auth::user()->department_id)}}</option>
                       </select>
+                    @endif
                   </td>
                   <td></td>
                 </tr>

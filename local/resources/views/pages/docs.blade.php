@@ -41,7 +41,7 @@ use App\func as f;
                        </thead>
                        <tbody>
                         @foreach($docs as $key=> $doc)
-                       <tr class=@if($key%2==0) 'info' @endif onClick='window.open("https://drive.google.com/open?id={{$doc->doc_id}}")'>
+                       <tr onClick='window.open("https://drive.google.com/open?id={{$doc->doc_id}}")' class=@if($key%2==0) 'info' @endif >
                           <td class='text-center'>{!!f::getImgFileType($doc->doc_type)!!}</td>
                           <td>{{$doc->doc_name}}</td>
                           <td>{{f::getTaskName($doc->task_id)}}</td>

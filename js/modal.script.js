@@ -47,7 +47,7 @@ $('#viewAllfileModal').on('show.bs.modal', function(event) {
     var path = button.data('path');
     var token = button.data('token');
     // console.log(dSt)
-    // console.log(dEnd)
+    //console.log(dEnd)
     //console.log(path)
     // console.log(token)
     var modal = $(this)

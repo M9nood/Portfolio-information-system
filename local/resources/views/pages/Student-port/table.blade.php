@@ -49,7 +49,7 @@
                             <td>{{$data->stp_name}}</td>
                             <td>{{$data->award}}</td>
                             <td style="text-align:center">
-                              @if(Auth::user()->isadm_stp=="yes")
+                              @if(f::isOfficer())
                               <a class="btn btn-info btn-xs" style="padding:5px"  title="รายละเอียด"  href="{{url('/std-portfolio/view/'.$data->stp_id)}}"><i class="fa fa-lg fa-info-circle"></i></a>
                               <a class="btn btn-warning btn-xs" style="padding:5px"  title="แก้ไข"  href="{{url('/std-portfolio/edit/'.$data->stp_id)}}" ><i class="fa fa-lg fa-pencil-square-o" ></i></a>
                               <a class="btn btn-danger btn-xs "  style="padding:5px"  title="ลบ" data-toggle="modal" data-target="#confirmDeleteModal" data-name="{{$data->stp_name}}" data-id="{{$data->stp_id}}"><i class="fa fa-lg fa-trash-o"></i></a>

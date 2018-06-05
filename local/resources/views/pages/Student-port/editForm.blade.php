@@ -1,6 +1,7 @@
 <?php
 use App\func as f;
 $users = f::userList();
+
 ?>
 @extends('pages.Student-port.index')
 
@@ -128,6 +129,7 @@ $users = f::userList();
                           </div>
                       </div>  
                   </div>
+                  @if($task->album_id != '')
                   <div class=" col-sm-3" id="div-album" >
                       <div class="floated album-card">
                         <a class="limited">
@@ -140,6 +142,7 @@ $users = f::userList();
                         </div>
                       </div>
                   </div>
+                  @endif
               </div>
                <div class="form-group">
                    <div class="col-sm-offset-3 col-sm-9">
@@ -232,6 +235,7 @@ $users = f::userList();
             "</div>";
         $('#tagFile').html(res);
         $('#list-dlt').html('');
+        $('#changeAlbum').val('yes')
       }
 
       function changeStd(){
@@ -303,6 +307,8 @@ $users = f::userList();
     if(dateSt != ''){
         $('#dateStart').datepicker("setDate", dateSt);
     }
+    var chkAlbum = '{{$task->album_id}}'
+    if(chkAlbum == 0) $("#div-filealbum").show()
   });
 
   $(document).ready(function(){  

@@ -341,16 +341,16 @@ class ReportformController extends Controller
         $html=$html.'<table border="1" cellpadding="2"  width="100%" class="tb-report table-hover">
                         <tr style="background-color: #99b3e6;">
                             <td width="8%" align="center">ลำดับที่</td>
-                            <td width="55%" align="center">ผลงานนักศึกษา</td>
-                            <td width="20%" align="center">วันที่ดำเนินการ</td>
-                            <td width="17%" align="center">จำนวนนักศึกษา</td>
+                            <td width="50%" align="center">ผลงานนักศึกษา</td>
+                            <td width="25%" align="center">รางวัล</td>
+                            <td width="17%" align="center">วันที่ดำเนินการ</td>  
                         </tr>';
                        foreach( $tasks as $key => $task ){
         $html =$html.   '<tr>
                             <td width="8%" style="text-align:center;padding:8px">'.($key+1).'</td>
-                            <td width="55%" style="text-align:laft"> '.$task->stp_name.'</td>
-                            <td width="20%" style="text-align:center"> '.f::dateDBtoBE($task->stp_proceed_date).'</td>
-                            <td width="17%" style="text-align:center"> '.($key+1).'</td>
+                            <td width="50%" style="text-align:laft"> '.$task->stp_name.'</td>
+                            <td width="25%" style="text-align:center"> '.(($task->award=="")? "-":$task->award).'</td>
+                            <td width="17%" style="text-align:center"> '.f::dateDBtoBE($task->stp_proceed_date).'</td>
                         </tr>';
                         }
 

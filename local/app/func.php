@@ -227,23 +227,32 @@ class func extends Model
     }
 
     public static function getTaskListforReport($tb,$stdate,$enddate,$uid){
-        if($tb->table !="research_devinvention"){
+        if($tb->table == "research_devinvention"){
+            $rsd = DB::table('research_devinvention')
+                        ->select($tb->id." as id", 'rsd_proceed_date','rsd_end_proceed_date')
+                        ->where('personnel_id',$uid)
+                        ->orderBy($tb->st_date)
+                        ->get();
+                $tsk = array();
+                $tsk = self::checkRSDduration($rsd,$stdate,$enddate);
+                return $tsk;
+            
+        }
+        elseif($tb->table == "training"){
             return DB::table($tb->table)
-                ->select($tb->id." as id" )
-                ->whereBetween($tb->st_date,[$stdate,$enddate])
-                ->where('personnel_id',$uid)
-                ->orderBy($tb->st_date)
-                ->get();
+                        ->select($tb->id." as id" )
+                        ->whereBetween($tb->st_date,[$stdate,$enddate])
+                        ->where('coTeacher','like','%'.$uid.'%')
+                        ->orderBy($tb->st_date)
+                        ->get();
         }
         else{
-            $rsd = DB::table('research_devinvention')
-                   ->select($tb->id." as id", 'rsd_proceed_date','rsd_end_proceed_date')
-                   ->where('personnel_id',$uid)
-                   ->orderBy($tb->st_date)
-                   ->get();
-            $tsk = array();
-            $tsk = self::checkRSDduration($rsd,$stdate,$enddate);
-            return $tsk;
+            return DB::table($tb->table)
+            ->select($tb->id." as id" )
+            ->whereBetween($tb->st_date,[$stdate,$enddate])
+            ->where('personnel_id',$uid)
+            ->orderBy($tb->st_date)
+            ->get();
         }
     }
     public static function getSTPListforReport($tb,$stdate,$enddate,$level){
@@ -548,5 +557,10 @@ class func extends Model
             }
         }
         return $tsk;
+    }
+
+    public static function isOfficer(){
+        if(Auth::user()->user_level=="support" and Auth::user()->isadm_stp == "yes") return true;
+        else return false;
     }
 }

@@ -1193,19 +1193,16 @@ class ActionController extends Controller
     /*                     Action Student Portfolio                      */
     /*********************************************************************/
     public function saveFormSTP(Request $request){
-      //dd($request);
       $dlt = array();
       
       $msg = [
         'taskName.required' => "กรุณาระบุเรื่อง ",
         'dateStart.required' => "กรุณาระบุวันที่ทำการ ",
-        //'stdList.required' => "จำเป็นต้องมีนักศึกษาอย่างน้อย 1 คน",
         'coTeacher.required' => "กรุณาระบุบุคลาการผู้ควบคุม",
       ];
 
       $rule = [
         'taskName' => 'required',
-        //'stdList' => 'required',
         'coTeacher' => 'required',
         'dateStart' => 'required'
 
@@ -1221,7 +1218,7 @@ class ActionController extends Controller
               $year = substr(substr(date('Y-m-d'),0,4)+543,2,4);
               $headtask = "STP".$year;
               $headfile = "STP-".$year;
-            //try{
+            try{
               $oldid = DB::table('student_portfolio')
                         ->select('stp_id as id')
                         ->orderBy('stp_id', 'desc')
@@ -1284,9 +1281,9 @@ class ActionController extends Controller
               ]);
 
 
-            // }catch (\Exception $e) {
-            //   return response()->json(['errException'=>"เกิดข้อผิดพลาดบางอย่างในการบันทึกข้อมูล โปรดลองอีกครั้ง"]);
-            // }
+            }catch (\Exception $e) {
+              return response()->json(['errException'=>"เกิดข้อผิดพลาดบางอย่างในการบันทึกข้อมูล โปรดลองอีกครั้ง"]);
+            }
       return response()->json(['success'=>'เพิ่มข้อมูลเรียบร้อย']);
      }
       else return response()->json(['error'=>$validator->errors()->all()]);
@@ -1299,13 +1296,11 @@ class ActionController extends Controller
       $msg = [
         'taskName.required' => "กรุณาระบุเรื่อง ",
         'dateStart.required' => "กรุณาระบุวันที่ทำการ ",
-        //'stdList.required' => "จำเป็นต้องมีนักศึกษาอย่างน้อย 1 คน",
         'coTeacher.required' => "กรุณาระบุบุคลาการผู้ควบคุม",
       ];
 
       $rule = [
         'taskName' => 'required',
-        //'stdList' => 'required',
         'coTeacher' => 'required',
         'dateStart' => 'required'
 
@@ -1322,7 +1317,9 @@ class ActionController extends Controller
                         ->join('albums','student_portfolio.album_id','=','albums.album_id')
                         ->where('student_portfolio.stp_id',$request->id)
                         ->first();
-        $new_album_id = $old_album->album_id;  
+        if($old_album == null)
+          $new_album_id = 0;
+        else $new_album_id = $old_album->album_id;  
         // เช็คว่ามีการกดเปลี่ยน รายชื่อไหม 
         if($request->change_std=="yes"){
           // ถ้ามีการ import ไฟล์
@@ -1349,21 +1346,23 @@ class ActionController extends Controller
         // have new  album
         if($request->changeAlbum == "yes"){
           try{
+            if($old_album != null){
             // ลบอัลบั้มเก่า บน กูเกิลไดร์ฟ
             $this->deleteFileFromDrive($old_album->album_drive_id);
             // ลบอัลบั้มเก่าในตาราง
             DB::table('images')->where('album_id',$old_album->album_id)->delete();
             DB::table('albums')->where('album_id',$old_album->album_id)->delete();
+            }
           }catch (\Exception $e) {
             return response()->json(['errException'=>$e->getMessage()]);
           }
 
           try{
-          // เช็คว่ามีไฟล์ไหม ถ้ามีเพิ่มบนไดร์ฟ และ ตาราง
-          $file = request()->file('file');
-          $docId = array();
-          // if have image then create album
             if(!empty(request()->file('file'))){
+              // เช็คว่ามีไฟล์ไหม ถ้ามีเพิ่มบนไดร์ฟ และ ตาราง
+              $file = request()->file('file');
+              $docId = array();
+              // if have image then create album
               // create album return id
               $album_id ='';
               $album_drive_id = $this->createFolderAlbum($idtask."-".$request->taskName);
@@ -1390,6 +1389,9 @@ class ActionController extends Controller
                   ]);
               }
 
+            }
+            else{
+              $new_album_id = 0;
             }
           }catch (\Exception $e) {
             return response()->json(['errException'=>$e->getMessage()]);
@@ -1429,10 +1431,12 @@ class ActionController extends Controller
     
         try{
           // ลบอัลบั้มเก่า บน กูเกิลไดร์ฟ
+          if(isset($old_album)){
           $this->deleteFileFromDrive($old_album->album_drive_id);
           // ลบอัลบั้มเก่าในตาราง
           DB::table('images')->where('album_id',$old_album->album_id)->delete();
           DB::table('albums')->where('album_id',$old_album->album_id)->delete();
+          }
           DB::table('student_portfolio')->where('stp_id',$id)->delete();
         }catch( \Exception $e ){
           echo "<script>alert('เกิดข้อผิดพลาดในการลบข้อมูลจากฐานข้อมูล');</script>";

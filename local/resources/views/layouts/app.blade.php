@@ -85,7 +85,7 @@ use App\func as f;
                 <li class="@if($page=="academic-service")active @endif"><a href="{{url('/academic-service')}}"><i class="fa fa-folder  fa-lg" aria-hidden="true" style="color:#4074a5" ></i></i><span> งานบริการวิชาการและอื่นๆ</span></a></li>
                 <li class="@if($page=="training")active @endif"><a href="{{url('/training')}}"><i class="fa fa-folder  fa-lg" aria-hidden="true" style="color:#4074a5"></i><span> งานเข้ารับฝึกอบรม</span></a></li>
                 <li class="@if($page=="std-portfolio")active @endif"><a href="{{url('/std-portfolio')}}"><i class="fa fa-graduation-cap fa-lg" aria-hidden="true" style="color:#4074a5"></i><span> ผลงานนักศึกษา</span></a></li>
-                @if(Auth::user()->user_level=="dean" or Auth::user()->user_level=="headofDp")
+                @if(Auth::user()->user_level=="dean" or Auth::user()->user_level=="headofDp" or f::isOfficer())
                 <li class="@if($page=="report")active @endif"><a href="{{url('/report')}}"><i class="fa fa-book fa-lg" aria-hidden="true" style="color:#4074a5"></i><span> รายงานสรุปผล</span></a></li>    
                 @endif
                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off" ></i><span>ออกจากระบบ</span></a></li>

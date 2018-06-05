@@ -119,13 +119,14 @@ class StudentPortfolioController extends Controller
     }
 
     public function stdList($id=''){
-        $std = DB::table('student_portfolio')->select('student_name_list')
+        $std = DB::table('student_portfolio')->select('student_name_list','stp_name')
                    ->where('stp_id',$id)->first();
         $stdlist = explode(",",$std->student_name_list);
         echo '
             <link href="'.url("css/custom-style.css").'" rel="stylesheet">
-            <div align="center">
-                <h3 style="font-family:THSarabunNew;font-size:24px;font-weight: bold;">รายชื่อนักศึกษา</h3>
+            <div align="center" style="line-height: 1;">
+                <h3 style="font-family:THSarabunNew;font-size:24px;font-weight: bold;line-height: 1;">รายชื่อนักศึกษาที่เข้าร่วม</h3>
+                <p style="font-family:THSarabunNew;font-size:20px;font-weight: bold;line-height: 1;">เรื่อง &nbsp'.$std->stp_name.'</p>
              <div>';
         echo '<table width="100%" border=2  cellspacing=0>
              <thead>

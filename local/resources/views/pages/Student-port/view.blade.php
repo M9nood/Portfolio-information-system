@@ -31,7 +31,7 @@
                         <td class="td-label">รายละเอียด</td><td >{!!$stp->stp_description!!}</td>
                     </tr>
                     <tr>
-                        <td class="td-label">รางวัลที่ได้รับ</td><td >{!!$stp->award!!}</td>
+                        <td class="td-label">รางวัลที่ได้รับ</td><td >{!!($stp->award=="")? "-":$stp->award!!}</td>
                     </tr>
                     <tr>
                         <td class="td-label">รายชื่อนักศึกษา</td>
@@ -54,21 +54,6 @@
                  </table>
               </div>
             </div>
-            <!--<div class="row">
-              <div class="col-sm-12">
-              <h5>ผลงาน</h5>
-                <div class='col-md-3'>
-                  <div class="card">
-                    <a href=""><i class="fa fa-file" aria-hidden="true"></i> งานบริการวิชาการและอื่นๆ</a>
-                  </div>
-                </div>
-                <div class='col-md-3'>
-                  <div class="card">
-                    <a href=""><i class="fa fa-file" aria-hidden="true"></i> งานเข้ารับฝึกอบรม</a>
-                  </div>
-                </div>
-              </div>
-            </div> -->
             <div class="row">
               <div class="col-sm-12 text-center"> 
                 <a href="{{url('std-portfolio')}}" class="btn btn-primary">กลับ</a>

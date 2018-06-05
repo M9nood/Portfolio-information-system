@@ -144,7 +144,7 @@ $ttName = val::getTitleName();
                    <div style="white-space:nowrap;" class="animated-checkbox">
                      <label>
                        <input type="checkbox" id="isadmSTP" name="isadmSTP" value="yes" @if($user->isadm_stp=="yes") checked @endif />
-                       <span class="label-text">อนุญาตให้สามารถเป็นผู้เพิ่มผลงานนักศึกษาได้</span>
+                       <span class="label-text">สิทธิ์เป็นเจ้าหน้าที่ของภาควิชา</span>
                      </label>
                  </div>
                   </td>

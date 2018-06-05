@@ -41,14 +41,18 @@ use App\constantsValue as val;
                 <tr>
                   <td  width="25%"  style="text-align:right;padding-right:15px;padding-bottom:10px"><b>ภาควิชา</b></td>
                   <td  colspan="3" style="padding-bottom:10px" align="left">
+                    @if(Auth::user()->user_level == "dean")
                     <select class="form-control drop-box"  name="dep" >
                           <option value="">--- เลือกภาควิชา ---</option>
                           @foreach($deps as $key => $dep)
-                            @if(Auth::user()->user_level=='dean' or Auth::user()->isadm_stp=='yes' or Auth::user()->department_id==$dep->department_id)
-                              <option value="{{$dep->department_id}}" @if(isset($_GET['dep']) and $_GET['dep'] ==$dep->department_id) selected @endif>{{$dep->department_name}}</option>
-                            @endif
+                            <option value="{{$dep->department_id}}" @if(isset($_GET['dep']) and $_GET['dep'] ==$dep->department_id) selected @endif>{{$dep->department_name}}</option>
                           @endforeach 
+                    </select>
+                    @elseif(Auth::user()->user_level=="headofDp" or f::isOfficer())
+                      <select class="form-control drop-box"  name="dep" >
+                          <option value="{{Auth::user()->department_id}}">{{f::getDeparmentName(Auth::user()->department_id)}}</option>
                       </select>
+                    @endif
                   </td>
                   <td></td>
                 </tr>
@@ -88,15 +92,15 @@ use App\constantsValue as val;
 
       if($selectLvl=="fac"){
           $title_centent ='<b>คณะ </b>: '.f::getFacultyNameUseFacId($selectId).'<br>
-          <b>ระหว่างวันที่ </b>: '.f::dateThaiFull($_GET['startTime'])." - ".f::dateThaiFull($_GET['endTime']);
+          <b>ระหว่างวันที่ </b>: '.f::dateThaiFull(f::dateFormatDB($_GET['startTime']))." - ".f::dateThaiFull(f::dateFormatDB($_GET['endTime']));
       }
       else if($selectLvl=="dep"){
           $title_centent ='<b>ภาควิชา </b>: '.f::getDeparmentName($selectId).' <b>คณะ </b>: '.f::getFacultyName($selectId).'<br>
-          <b>ระหว่างวันที่ </b>: '.f::dateThaiFull($_GET['startTime'])." - ".f::dateThaiFull($_GET['endTime']);
+          <b>ระหว่างวันที่ </b>: '.f::dateThaiFull(f::dateFormatDB($_GET['startTime']))." - ".f::dateThaiFull(f::dateFormatDB($_GET['endTime']));
       }
       else{
           $title_centent ='<b>ผู้ปฏิบัติงาน </b>: '.f::getFullName(Auth::user()->id).'<br>
-          <b>ระหว่างวันที่ </b>: '.f::dateThaiFull($_GET['startTime'])." - ".f::dateThaiFull($_GET['endTime']);
+          <b>ระหว่างวันที่ </b>: '.f::dateThaiFull(f::dateFormatDB($_GET['startTime']))." - ".f::dateThaiFull(f::dateFormatDB($_GET['endTime']));
       }
 
       ?>
@@ -128,7 +132,7 @@ use App\constantsValue as val;
                     <tr>
                       <td valign="top" class="text-center">{{$key+1}}</td>
                       <td valign="top">{{$task->stp_name}}</td>
-                      <td valign="top">{{$task->award}}</td>
+                      <td valign="top">{{($task->award=="")? "-":$task->award}}</td>
                       <td valign="top" align="center">{{f::dateDBtoBE($task->stp_proceed_date)}}</td>
                       <td valign="top"><a href="{{url('album/dept/std-portfolio/'.$task->album_id)}}">ดูอัลบั้ม</a></td>
                     </tr>

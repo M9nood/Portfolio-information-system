@@ -21,7 +21,7 @@ class doReportController extends Controller
         //$this->middleware('auth');
         $this->middleware(function ($request, $next) {
             if(empty(Auth::user())) return redirect('/');
-            if(Auth::user()->user_level!="dean" and Auth::user()->user_level!="headofDp"){
+            if(Auth::user()->user_level!="dean" and Auth::user()->user_level!="headofDp" and !f::isOfficer()){
                 return redirect('/permise');
             }  
             return $next($request);
@@ -31,7 +31,7 @@ class doReportController extends Controller
 
     public function indexReport(){
         if(Auth::user()->user_level=="dean") return redirect('fac-report');
-        if(Auth::user()->user_level=="headofDp") return redirect('dep-report');
+        if(Auth::user()->user_level=="headofDp" or f::isOfficer()) return redirect('dep-report');
     }
 
     public function facReport(Request $request){

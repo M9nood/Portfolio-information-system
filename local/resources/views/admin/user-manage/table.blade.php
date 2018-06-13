@@ -8,7 +8,7 @@
      
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp ตารางผู้ใช้</a></li>
+          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp รายการผู้ใช้</a></li>
         </ul>
 
         <!-- Tab panes -->
@@ -42,7 +42,7 @@
                       <tbody>
                       @foreach ($users as $key => $user)
                             <tr>
-                              <td>{{$key+1}}</td>
+                              <td class="text-center">{{$key+1}}</td>
                               <td>{{$user->name." ".$user->lastname}}</td>
                               <td>{{$user->email}}</td>
                               <td>{{$user->user_position_name}}</td>

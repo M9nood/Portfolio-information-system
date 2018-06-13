@@ -100,7 +100,7 @@ class PDFController extends Controller
           PDF::AddFont('thsarabun', '', 'thsarabun.php');
           PDF::SetFont('thsarabun', '', 16, '', true);
           PDF::AddPage('P','A4',false,false);
-          PDF::SetMargins(20, 22, 20,false);
+          PDF::SetMargins(15, 22, 15,false);
           PDF::setFontSubsetting(true);
           PDF::writeHTML($html,true,false,true,false,'');
 

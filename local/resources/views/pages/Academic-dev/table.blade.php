@@ -11,7 +11,7 @@ use App\constantsValue as val;
        <div class="card">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp ตารางงาน</a></li>
+          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp รายการผลงาน</a></li>
           <li role="presentation"><a href="{{url('/academic-dev/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
         </ul>
         <!-- Tab panes -->
@@ -46,7 +46,7 @@ use App\constantsValue as val;
                       <tbody>
                           @foreach ($datas as $key=> $data)
                             <tr>
-                              <td>{{f::yearThai($data->acd_proceed_date	)}}</td>
+                              <td class="text-center">{{f::yearThai($data->acd_proceed_date	)}}</td>
                               <td>{{f::dateThai($data->acd_proceed_date	)}}</td>
                               <td>{{$data->acd_name}}</td>
                               <td>{{val::getACDCategory($data->acd_category)}}</td>

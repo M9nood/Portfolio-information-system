@@ -8,7 +8,7 @@
      
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" ><a href="{{url('/std-portfolio')}}" ><i class="fa fa-lg  fa-table" aria-hidden="true"></i> ตารางผลงานนักศึกษา</a></li>
+          <li role="presentation" ><a href="{{url('/std-portfolio')}}" ><i class="fa fa-lg  fa-table" aria-hidden="true"></i> รายการผลงานนักศึกษา</a></li>
           <li role="presentation"><a href="{{url('/std-portfolio/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>  
           <li role="presentation" class="active"><a style="background-color: white;border:1px solid #009688;border-bottom:0px;color:#009688" onClick="refresh()" ><i class="fa fa-lg  fa-address-book-o" aria-hidden="true"></i> ข้อมูลผลงานนักศึกษา</a></li>
         </ul>
@@ -21,9 +21,6 @@
              <div class="row">
               <div class="col-sm-12"> 
                  <table  class="table table-bordered text-warp">
-                    <tr>
-                        <td width="200" class="td-label">รหัส</td><td>{{$stp->stp_id}}</td>
-                    </tr>
                     <tr>
                         <td class="td-label">เรื่อง</td><td>{{$stp->stp_name}}</td>
                     </tr>

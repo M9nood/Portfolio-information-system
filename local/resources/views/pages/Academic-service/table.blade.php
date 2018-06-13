@@ -9,7 +9,7 @@
      
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp ตารางงาน</a></li>
+          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp รายการผลงาน</a></li>
           <li role="presentation"><a href="{{url('/academic-service/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
         </ul>
 
@@ -41,7 +41,7 @@
                       <tbody>
                           @foreach ($datas as $data)
                             <tr>
-                              <td>{{f::yearThai($data->as_start_date)}}</td>
+                              <td class="text-center">{{f::yearThai($data->as_start_date)}}</td>
                               <td>{{f::dateThai($data->as_start_date)}}</td>
                               <td>{{$data->as_name}}</td>
                               <td>{{f::getCategoryNameAS($data->as_category)}}</td>

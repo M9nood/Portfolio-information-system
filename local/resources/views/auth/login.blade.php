@@ -9,8 +9,11 @@
         @endif
         <img src="{{url('img/Google-Drive-Icon.png')}}" width="200" alt="">
         <div class="title">Portfolio Information System</div>
-        <a  href="{{ url('auth/google') }}" style="padding:17px 10px;" class="btn btn-info btn-block">Login With Google</a>
+        <div style="margin-top:80px">
+           <a  href="{{ url('auth/google') }}" style="padding:17px 10px;" class="btn btn-info btn-block">Login With Google</a>
+        </div>
 </div>
+
 
        
 @endsection

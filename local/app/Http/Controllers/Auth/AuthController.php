@@ -20,11 +20,12 @@ class AuthController extends Controller
     protected $redirectTo = '/';
     protected $client;
     protected $folder_id;
-    protected $rootFolderId='1DuIEUjTttUWWpBm38wpOpoJH77ACAyHq';
+    protected $rootFolderId;
     protected $service;
 
     public function __construct()
     {
+        $this->rootFolderId = env('GOOGLE_DRIVE_FOLDER_ID');
         $this->middleware('guest', ['except' => 'logout']);
     }
 
@@ -51,8 +52,7 @@ class AuthController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleGoogleCallback()
-    {
+    public function handleGoogleCallback(){
         
             $user = Socialite::driver('google')->stateless()->user();
             Session::put('avatar', $user->avatar);
@@ -97,7 +97,12 @@ class AuthController extends Controller
          ]);
          $folder = $this->service->files->create($fileMetadata, ['fields' => 'id']);
          return $folder->id;
-     }
+    }
+
+    public function logout(){
+        Session::flush(); Auth::logout();
+        return redirect('https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue='.url(''));
+    }
 }
 
 ?>

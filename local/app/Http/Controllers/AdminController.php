@@ -16,13 +16,13 @@ class AdminController extends Controller
     //
     protected $client;
     protected $folder_id;
-    protected $rootFolderId='1DuIEUjTttUWWpBm38wpOpoJH77ACAyHq';
+    protected $rootFolderId;
     protected $service;
 
     public function __construct()
     {
         
-        //$this->middleware('auth');
+        $this->rootFolderId = env('GOOGLE_DRIVE_FOLDER_ID');
         $this->middleware(function ($request, $next) {
             if(empty(Auth::user())) return redirect('/');
             if(Auth::user()->user_level!="admin"){

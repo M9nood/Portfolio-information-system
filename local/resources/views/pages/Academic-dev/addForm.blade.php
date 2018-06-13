@@ -3,6 +3,7 @@ use App\func as f;
 use App\constantsValue as val;
 
 $acd_category = val::ACDCategory();
+$yy = f::getYearSemester();
 ?>
 @extends('pages.Academic-dev.index')
 
@@ -15,7 +16,7 @@ $acd_category = val::ACDCategory();
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" ><a href="{{url('/academic-dev')}}" ><i class="fa fa-lg fa-table " aria-hidden="true"></i>&nbsp ตารางงาน</a></li>
+          <li role="presentation" ><a href="{{url('/academic-dev')}}" ><i class="fa fa-lg fa-table " aria-hidden="true"></i>&nbsp รายการผลงาน</a></li>
           <li role="presentation" ><a href="{{url('/academic-dev/report')}}"  ><i class="fa fa-lg  fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
           <li role="presentation" class="active"><a style="background-color: white;border:1px solid #009688;border-bottom:0px;color:#009688" href=""  ><i class="fa fa-lg fa-plus-square fa-lg" aria-hidden="true"></i>  &nbsp เพิ่ม</a></li>
         </ul>
@@ -63,10 +64,14 @@ $acd_category = val::ACDCategory();
                                 <option value="3">3</option>
                               </select>
                             </div>
-                            <label for="dateEnd" class="col-sm-1 control-label">/</label>
-                            <div class="col-sm-5" style="padding-left: 0px;">
-                                <input type="text" class="form-control input-sm" name="yearSemester" id="yearSemester" placeholder="ปี พ.ศ." >
-                              </div>
+                            <label for="dateEnd" class="col-sm-1 control-label" style="margin-left:10px"> / </label>
+                            <div class="col-sm-5">
+                                <select class="form-control drop-box input-sm" style="margin-top: 0px;" name="yearSemester" id="yearSemester">
+                                  @foreach($yy as $y)
+                                    <option value="{{$y}}" @if((date('Y')+543)==$y) selected @endif>{{$y}}</option>
+                                  @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

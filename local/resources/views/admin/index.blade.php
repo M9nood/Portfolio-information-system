@@ -145,7 +145,7 @@ var myChart = new Chart(ctx, {
             "ผลงานักศึกษา"
         ],
         datasets: [{
-            label: 'ผลงาน',
+            label: 'จำนวนผลงาน',
             data: cntTask,
             backgroundColor: [
                 'rgba(255,167,38, 0.4)',
@@ -167,10 +167,15 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
+        legend: {
+            display: false,
+        },
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    beginAtZero: true,
+                    stepSize: 20,
+                    min: 0,
                 }
             }]
         }

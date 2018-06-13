@@ -45,16 +45,10 @@ use App\func as f;
                 <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-lg fa-angle-down"></i></a>
                     <ul class="dropdown-menu settings-menu">
                     <li>
-                                            <a href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
+                                            <a href="{{ url('logout') }}">
                                                 <i class="fa fa-power-off" aria-hidden="true"></i>
                                                 ออกจากระบบ
                                             </a>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                {{ csrf_field() }}
-                                            </form>
                     </li>
                     </ul>
                 </li>
@@ -82,7 +76,7 @@ use App\func as f;
                     <li><a href="{{url('/admin/fac-manage')}}"><i class="fa fa-circle-o"></i> จัดการข้อมูลคณะ</a></li>
                 </ul>
                 </li>
-                <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off" ></i><span>ออกจากระบบ</span></a></li>
+                <li><a href="{{ url('logout') }}"><i class="fa fa-power-off" ></i><span>ออกจากระบบ</span></a></li>
             </ul>
             </section>
         </aside>

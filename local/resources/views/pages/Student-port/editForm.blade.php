@@ -13,7 +13,7 @@ $users = f::userList();
 
      <!-- Nav tabs -->
      <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" ><a href="{{url('/std-portfolio')}}" ><i class="fa fa-table" aria-hidden="true"></i> ตารางผลงานนักศึกษา</a></li>
+      <li role="presentation" ><a href="{{url('/std-portfolio')}}" ><i class="fa fa-table" aria-hidden="true"></i> รายการผลงานนักศึกษา</a></li>
       <li role="presentation"><a href="{{url('/std-portfolio/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>  
       <li role="presentation" class="active"><a style="background-color: white;border:1px solid #FF9800;border-bottom:0px;color:#FF9800" href=""  ><i class="fa fa-pencil-square-o fa-lg"></i>  &nbsp แก้ไข</a></li>
     </ul>
@@ -320,7 +320,8 @@ $users = f::userList();
       <?php
         }
       ?>
-      showSelect();
+      $('#divTeacher').show()
+      setTch();
   });
 
   </script>

@@ -122,7 +122,7 @@ $cntUserTask = f::countUserTask(Auth::user()->id);
      
     var cntTask = [<?php echo '"'.implode('","', $cntUserTask).'"' ?>];
     var ctx = document.getElementById("barChartDemo").getContext('2d');
-var myChart = new Chart(ctx, {
+    var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: [
@@ -133,7 +133,7 @@ var myChart = new Chart(ctx, {
             "งานเข้ารับฝึกอบรม", 
         ],
         datasets: [{
-            label: 'ผลงาน',
+            label: 'จำนวนผลงาน',
             data: cntTask,
             backgroundColor: [
                 'rgba(255,167,38, 0.4)',
@@ -155,10 +155,15 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
+        legend: {
+            display: false,
+        },
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    beginAtZero: true,
+                    stepSize: 5,
+                    min: 0,
                 }
             }]
         }

@@ -8,7 +8,7 @@
      
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" ><a href="{{url('admin/user-manage')}}" ><i class="fa fa-table" aria-hidden="true"></i> ตารางผู้ใช้</a></li>
+          <li role="presentation" ><a href="{{url('admin/user-manage')}}" ><i class="fa fa-table" aria-hidden="true"></i> รายการผู้ใช้</a></li>
           <li role="presentation" class="active"><a style="background-color: white;border:1px solid #009688;border-bottom:0px;color:#009688" onClick="refresh()" ><i class="fa fa-address-book-o" aria-hidden="true"></i> ข้อมูลผู้ใช้</a></li>
         </ul>
 
@@ -21,9 +21,6 @@
              <div class="row">
               <div class="col-sm-12"> 
                  <table  class="table table-bordered">
-                 <tr>
-                  <td>รหัส</td><td>{{$user->id}}</td>
-                 </tr>
                   <tr>
                   <td>คำนำหน้าชื่อ</td><td>{{$user->title_name}}</td>
                  </tr>

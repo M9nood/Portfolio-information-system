@@ -10,7 +10,7 @@
      
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i> &nbsp ตารางงาน</a></li>
+          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i> &nbsp รายการผลงาน</a></li>
           <li role="presentation"><a href="{{url('/training/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
         </ul>
 
@@ -43,7 +43,7 @@
                       <tbody>
                           @foreach ($datas as $data)
                             <tr>
-                              <td>{{f::yearThai($data->trn_start)}}</td>
+                              <td class="text-center">{{f::yearThai($data->trn_start)}}</td>
                               <td>{{f::dateThai($data->trn_start)}}</td>
                               <td>{{$data->trn_name}}</td>
                               <td>{{$data->trn_address}}</td>

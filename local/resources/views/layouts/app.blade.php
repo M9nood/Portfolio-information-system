@@ -49,16 +49,10 @@ use App\func as f;
                 <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-lg fa-angle-down"></i></a>
                     <ul class="dropdown-menu settings-menu">
                     <li>
-                                            <a href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
+                                            <a href="{{ url('logout') }}">
                                                 <i class="fa fa-power-off" aria-hidden="true"></i>
                                                 ออกจากระบบ
                                             </a>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                {{ csrf_field() }}
-                                            </form>
                     </li>
                     </ul>
                 </li>
@@ -72,7 +66,7 @@ use App\func as f;
             <div class="user-panel">
                 <div class="pull-left image"><img class="img-circle" width="50" src="{{(Session::get('avatar')=='') ? url('img/default-user.png'):Session::get('avatar')}}" alt="User Image"></div>
                 <div class="pull-left info">
-                <p class="user-name">{{ f::cutStr(Auth::user()->title_name." ".Auth::user()->name." ".Auth::user()->lastname,16,"...") }}</p>
+                <p class="user-name" title="{{ Auth::user()->title_name.Auth::user()->name." ".Auth::user()->lastname }}">{{ f::cutStr(Auth::user()->name." ".Auth::user()->lastname,16,"...") }}</p>
                 <p class="designation">{{Auth::user()->user_position_name}}</p>
                 </div>
             </div>
@@ -88,7 +82,7 @@ use App\func as f;
                 @if(Auth::user()->user_level=="dean" or Auth::user()->user_level=="headofDp" or f::isOfficer())
                 <li class="@if($page=="report")active @endif"><a href="{{url('/report')}}"><i class="fa fa-book fa-lg" aria-hidden="true" style="color:#4074a5"></i><span> รายงานสรุปผล</span></a></li>    
                 @endif
-                <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-power-off" ></i><span>ออกจากระบบ</span></a></li>
+                <li><a href="{{ url('logout') }}" ><i class="fa fa-power-off" ></i><span>ออกจากระบบ</span></a></li>
             </ul>
             </section>
         </aside>

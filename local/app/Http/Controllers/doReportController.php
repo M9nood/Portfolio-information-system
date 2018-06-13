@@ -94,6 +94,7 @@ class doReportController extends Controller
                     ->leftjoin('users','research_devinvention.personnel_id','=','users.id')
                     ->leftjoin('departments','users.department_id','=','departments.department_id')
                     ->whereRaw($whereraw)
+                    ->orderBy('users.department_id')
                     ->orderBy('rsd_proceed_date')
                     ->get();
              $tasks = f::checkRSDduration($tasks,$st_date,$end_date);
@@ -144,7 +145,7 @@ class doReportController extends Controller
                                 <td valign="top" style="line-height: 1;"> เรื่อง '.$task->rsd_name.'<br>'.val::getRSDNameRole($task->rsd_user_role).'</td>
                                 <td valign="top" align="center" >'.$task->rsd_semester.'</td>
                                 <td valign="top" align="center" >'.f::dateDBtoBE($task->rsd_proceed_date).'</td>
-                                <td valign="top" >'.f::getFileById($task->rsd_id).'</td>
+                                <td valign="top" align="center"><a  data-target="#viewfileModal" data-toggle="modal" data-tname="'.$task->rsd_name.'" data-token="'.csrf_token().'" data-path="'.url('file/getbyid/'.$task->rsd_id).'"> ดูเอกสาร</a></td>
                             </tr>';
                             }
                         }
@@ -179,6 +180,7 @@ class doReportController extends Controller
                     ->leftjoin('departments','users.department_id','=','departments.department_id')
                     ->whereBetween('acd_proceed_date',[$st_date,$end_date])
                     ->whereRaw($whereraw)
+                    ->orderBy('users.department_id')
                     ->orderBy('acd_proceed_date')
                     ->get();
             $title_centent;
@@ -236,7 +238,7 @@ class doReportController extends Controller
                                 <td valign="top" align="center" style="line-height: 1;"> '.$task->acd_semester.'</td>
                                 <td valign="top" align="center" style="line-height: 1;"> '.$task->acd_creditPerWeek	.'</td>
                                 <td valign="top" style="line-height: 1;" align="center" >'.f::dateDBtoBE($task->acd_proceed_date).'</td>
-                                <td valign="top" style="line-height: 1;">'.f::getFileById($task->acd_id).'</td>
+                                <td valign="top" align="center"><a  data-target="#viewfileModal" data-toggle="modal" data-tname="'.$task->acd_name.'" data-token="'.csrf_token().'" data-path="'.url('file/getbyid/'.$task->acd_id).'"> ดูเอกสาร</a></td>
                               </tr>';
                           }
                         }
@@ -271,6 +273,7 @@ class doReportController extends Controller
                     ->leftjoin('departments','users.department_id','=','departments.department_id')
                     ->whereBetween('acp_proceed_date',[$st_date,$end_date])
                     ->whereRaw($whereraw)
+                    ->orderBy('users.department_id')
                     ->orderBy('acp_proceed_date')
                     ->get();
             $title_centent;
@@ -325,7 +328,7 @@ class doReportController extends Controller
                                    if($task->acp_user_role!==99) $html=$html.'- '.val::ACPRole($task->acp_user_role); 
             $html=         $html.'</td>
                                  <td valign="top" align="center" style="line-height: 1;" >'.f::dateDBtoBE($task->acp_proceed_date).'</td>
-                                 <td valign="top" style="line-height: 1;">'.f::getFileById($task->acp_id).'</td>
+                                 <td valign="top" align="center"><a  data-target="#viewfileModal" data-toggle="modal" data-tname="'.$task->acp_name.'" data-token="'.csrf_token().'" data-path="'.url('file/getbyid/'.$task->acp_id).'"> ดูเอกสาร</a></td>
                                </tr>';
                            }
                            
@@ -370,6 +373,7 @@ class doReportController extends Controller
                     ->leftjoin('departments','users.department_id','=','departments.department_id')
                     ->whereBetween('trn_start',[$st_date,$end_date])
                     ->whereRaw($whereraw)
+                    ->orderBy('users.department_id')
                     ->orderBy('trn_start')
                     ->get();
             $title_centent;
@@ -412,7 +416,7 @@ class doReportController extends Controller
                         '<td valign="top" align="center">'.f::dateDBtoBE($task->trn_start).'</td>'.
                         '<td valign="top" align="center">'.f::dateDBtoBE($task->trn_end).'</td>'.
                         '<td valign="top" class="text-center">'.f::countCoTeacher($task->coTeacher).'</td>'.
-                        '<td valign="top">'.f::getFileById($task->trn_id).'</td>'.
+                        '<td valign="top" align="center"><a  data-target="#viewfileModal" data-toggle="modal" data-tname="'.$task->trn_name.'" data-token="'.csrf_token().'" data-path="'.url('file/getbyid/'.$task->trn_id).'"> ดูเอกสาร</a></td>'.
                         '</tr>';
                     }
         $html=$html.'</tbody>
@@ -447,6 +451,7 @@ class doReportController extends Controller
                     ->leftjoin('departments','users.department_id','=','departments.department_id')
                     ->whereBetween('as_start_date',[$st_date,$end_date])
                     ->whereRaw($whereraw)
+                    ->orderBy('users.department_id')
                     ->orderBy('as_start_date')
                     ->get();
             $title_centent;
@@ -499,7 +504,7 @@ class doReportController extends Controller
                              <td valign="top" style="border:0px!important"></td>
                              <td valign="top" style="line-height: 1;">'.($i+1).".".$sub." ".$task->as_name.'</td>'.
                              '<td valign="top" align="center" >'.f::dateDBtoBE($task->as_start_date).'</td>'.
-                             '<td valign="top" > '.f::getFileById($task->as_id).'</td>'.
+                             '<td valign="top" align="center"><a  data-target="#viewfileModal" data-toggle="modal" data-tname="'.$task->as_name.'" data-token="'.csrf_token().'" data-path="'.url('file/getbyid/'.$task->as_id).'"> ดูเอกสาร</a></td>'.
                              '</tr>';
                             }catch (\Exception $e) {
                                 return 'เกิดข้อผิดพลาดบางอย่างในการบันทึกข้อมูล โปรดลองอีกครั้ง';

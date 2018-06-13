@@ -11,11 +11,12 @@
 |
 */
 
-
+Route::get('logout', 'Auth\AuthController@logout');
 Auth::routes();
 
 Route::get('auth/google', 'Auth\AuthController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\AuthController@handleGoogleCallback');
+
 
 /* route page  */
 
@@ -35,6 +36,7 @@ Route::prefix('/')->group(function () {
   Route::any('album/dept/std-portfolio/{albumid}','StudentPortfolioController@showAlbum');
   Route::any('album/{level}/std-portfolio/all','StudentPortfolioController@getAlbumforReport');
   
+  Route::any('file/getbyid/{taskid}','UserController@showFileById');
   Route::get('file/{task}/user','UserController@showUserDocs');
   Route::any('file/{uid}/{task}/all','UserController@getFileByUid');
   Route::any('file/fac/{facId}/{task}','doReportController@getFileByFaculty');

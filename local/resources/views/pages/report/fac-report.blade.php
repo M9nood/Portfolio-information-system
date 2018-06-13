@@ -30,45 +30,48 @@ use App\constantsValue as val;
         <div class="panel-body">
           <div class="col-md-12 ">
             {{ Form::open(['url' => 'fac-report', 'method' => 'get']) }}
-            <table border="0" width="60%" align="center" >
-                <tr style="padding-bottom:10px">
-                  <td  width="25%"  style="text-align:right;padding-right:15px" ><b>เลือกประเภทผลงาน</b></td>
-                  <td  colspan="3" style="padding-bottom:10px" align="left">
-                    <select class="form-control drop-box"  name="task" >
-                          <option value="">--- เลือกประเภทผลงาน ---</option>
-                          @foreach($tb as $key => $tb)
-                            @if($key != "std-portfolio")
-                            <option value="{{$key}}" @if(isset($_GET['task']) and $_GET['task'] ==$key) selected @endif>{{$tb['name']}}</option>
-                            @endif
-                          @endforeach 
-                      </select>
-                  </td>
+            <table border="0" width="100%" align="center" >
+                <tr>
+                    <td  class="col-md-3" align="right" valign="top" style="padding-bottom:10px;padding-right:15px"><b>ประเภทผลงาน</b></td>
+                    <td  class="col-md-6" style="padding-bottom:10px">
+                      <select class="form-control drop-box"  name="task" >
+                            <option value="">--- เลือกประเภทผลงาน ---</option>
+                            @foreach($tb as $key => $tb)
+                              @if($key != "std-portfolio")
+                                <option value="{{$key}}" @if(isset($_GET['task']) and $_GET['task'] ==$key) selected @endif>{{$tb['name']}}</option>
+                              @endif
+                            @endforeach 
+                        </select>
+                    </td>
+                    <td  class="col-md-3"></td>
                 </tr>
                 
                 <tr style="padding-bottom:10px">
-                        <td width="25%" align="right" valign="top" style="padding-bottom:10px;padding-right:15px" ><b>ช่วงการประเมิน</b></td>
-                        <td colspan="4"  align="left">
-                              <div class="animated-radio-button">
-                                    <label>
-                                      <input type="radio" name="time" value="time1" onchange="time1()" @if(isset($_GET['time']) and $_GET['time'] =='time1')checked @endif><span class="label-text"><span class="label-text">รอบที่ 1 ( {{val::getEstimateTime1()}})</span>
-                                    </label>
-                              </div>
-                                <div class="animated-radio-button">
-                                      <label>
-                                          <input type="radio" name="time" value="time2" onchange="time2()" @if(isset($_GET['time']) and $_GET['time'] =='time2')checked @endif><span class="label-text"> รอบที่ 2 ( {{val::getEstimateTime2()}})</span></p>
-                                      </label>
-                                </div>
-                        </td>
-                      </tr>
-                      <tr >
-                          <td width="25%" style="text-align:right;padding-right:15px" ><b>ช่วงวันที่</b></td>
-                          <td ><input type="text" id="dateStart" name="startTime" class="datepicker" data-date-format="mm/dd/yyyy"  required></td>
-                          <td >ถึง</td>
-                          <td ><input type="text" id="dateEnd" name="endTime" class="datepicker" data-date-format="mm/dd/yyyy" required></td>
-                          <td >
-                            <button class="btn btn-primary"  >ดูรายงาน</button>
-                          </td>
-                        <tr>
+                  <td class="col-md-3" align="right" valign="top" style="padding-bottom:10px;padding-right:15px" ><b>ช่วงการประเมิน</b></td>
+                  <td class="col-md-6"  align="left">
+                        <div class="animated-radio-button">
+                              <label>
+                                <input type="radio" name="time" value="time1" onchange="time1()" @if(isset($_GET['time']) and $_GET['time'] =='time1')checked @endif><span class="label-text"><span class="label-text">รอบที่ 1 ( {{val::getEstimateTime1()}})</span>
+                              </label>
+                        </div>
+                          <div class="animated-radio-button">
+                                <label>
+                                    <input type="radio" name="time" value="time2" onchange="time2()" @if(isset($_GET['time']) and $_GET['time'] =='time2')checked @endif><span class="label-text"> รอบที่ 2 ( {{val::getEstimateTime2()}})</span></p>
+                                </label>
+                          </div>
+                  </td>
+                  <td  class="col-md-3"></td>
+                </tr>
+                <tr>
+                    <td class="col-md-3" style="text-align:right;padding-right:15px" ><b>ช่วงวันที่</b></td>
+                    <td class="col-md-3">
+                      <input type="text" id="dateStart" name="startTime" class="datepicker" data-date-format="mm/dd/yyyy"  required>
+                      <span style="padding:0px 5px">ถึง</span>
+                      <input type="text" id="dateEnd" name="endTime" class="datepicker" data-date-format="mm/dd/yyyy" required>
+                      <button class="btn btn-primary"  >ดูรายงาน</button>
+                    </td>
+                    <td  class="col-md-3"></td>
+                  <tr>
               </table>
           {{ Form::close()}}
           </div>
@@ -87,7 +90,7 @@ use App\constantsValue as val;
     </div>
 </div>
 
-<!-- modal view file detail -->
+<!-- modal view  all file detail -->
   <div class="modal fade" id="viewAllfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog viewfile-modal-dialog "   role="document" >
     <div class="modal-content">
@@ -106,6 +109,25 @@ use App\constantsValue as val;
 </div>
 </div>
 
+
+<!-- modal view file detail -->
+<div class="modal fade" id="viewfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog viewfile-modal-dialog "   role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">เอกสาร</h4>
+      </div>
+      <div class="modal-body viewfile-modal-body" id="scroll">
+      <p id="msg"></p>
+    </div>
+    <hr>
+    <div class="modal-footer" style="border-top:0px">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">ปิด</button>
+      </div>
+  </div>
+</div>
+</div>
 
 <script src="{{ url('js/plugins/bootstrap-datepicker-custom.js') }}"></script>
 <script src="{{ url('js/plugins/bootstrap-datepicker.th.min.js') }}"></script>

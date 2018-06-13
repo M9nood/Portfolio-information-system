@@ -18,12 +18,13 @@ class StudentPortfolioController extends Controller
     //
     protected $client;
     protected $folder_id;
-    protected $rootFolderId='1DuIEUjTttUWWpBm38wpOpoJH77ACAyHq';
+    protected $rootFolderId;
     protected $service;
     protected $rpt;
 
     public function __construct()
     {
+        $this->rootFolderId = env('GOOGLE_DRIVE_FOLDER_ID');
         $this->middleware('auth');
     }
 
@@ -95,6 +96,7 @@ class StudentPortfolioController extends Controller
                     
                     
                     $supTch = array();
+                    
                     if(!$superviser->superviser_id==""){
                         $supTchId = explode(",",$superviser->superviser_id);
                         foreach($supTchId as $id){
@@ -125,8 +127,8 @@ class StudentPortfolioController extends Controller
         echo '
             <link href="'.url("css/custom-style.css").'" rel="stylesheet">
             <div align="center" style="line-height: 1;">
-                <h3 style="font-family:THSarabunNew;font-size:24px;font-weight: bold;line-height: 1;">รายชื่อนักศึกษาที่เข้าร่วม</h3>
-                <p style="font-family:THSarabunNew;font-size:20px;font-weight: bold;line-height: 1;">เรื่อง &nbsp'.$std->stp_name.'</p>
+                <h3 style="font-family:THSarabunNew;font-size:24px;font-weight: bold;line-height: 1;">รายชื่อนักศึกษาที่เข้าร่วมโครงการ</h3>
+                <p style="font-family:THSarabunNew;font-size:20px;font-weight: bold;line-height: 1;">'.$std->stp_name.'</p>
              <div>';
         echo '<table width="100%" border=2  cellspacing=0>
              <thead>
@@ -169,6 +171,7 @@ class StudentPortfolioController extends Controller
                         ->join('departments','departments.department_id','=','users.department_id')
                         ->where('departments.faculty_id',$request->fac)
                         ->whereBetween('stp_proceed_date',[$st_date,$end_date])
+                        ->orderBy('users.department_id')
                         ->orderBy('stp_proceed_date')
                         ->get();
                         $selectLvl ='fac';

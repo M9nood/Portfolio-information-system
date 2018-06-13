@@ -21,7 +21,7 @@ $ttName = val::getTitleName();
      
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" ><a href="{{url('admin/user-manage')}}" ><i class="fa fa-lg fa-table" aria-hidden="true"></i> ตารางผู้ใช้</a></li>
+          <li role="presentation" ><a href="{{url('admin/user-manage')}}" ><i class="fa fa-lg fa-table" aria-hidden="true"></i> รายการผู้ใช้</a></li>
           <li role="presentation" class="active"><a style="background-color: white;border:1px solid #FF9800;border-bottom:0px;color:#FF9800" href=""  ><i class="fa fa-lg fa-pencil-square-o fa-lg" aria-hidden="true"></i>  &nbsp แก้ไข</a></li>
         </ul>
 

@@ -2,6 +2,7 @@
 @section('content')
 <div style="margin-top:70px;font-family: Mitr;"class="container">
     <div class="container about-box" style="background:#e6e6e6">
+        <a href="{{url('')}}" type="button" class="close" style="margin-top:-12px;margin-right:-22px" aria-label="Close"><i class='fa fa-times-circle fa-2x'></i>  </a>
         <h4 class="title-about"><i class="fa fa-star" aria-hidden="true"></i> เกี่ยวกับระบบ</h4>
         <table>
             <tr>
@@ -17,6 +18,7 @@
             
                     </p></td>
             </tr>
+            
         </table>
         
         <br><br>

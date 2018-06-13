@@ -62,6 +62,24 @@ $('#viewAllfileModal').on('show.bs.modal', function(event) {
     });
 });
 
+$('#viewfileModal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var path = button.data('path');
+    var token = button.data('token');
+    var tname = button.data('tname');
+    var modal = $(this)
+    $.ajax({
+        url: path,
+        type: 'POST',
+        dataType: 'JSON',
+        data: { _token: token },
+        success: function (data) {
+            modal.find('#exampleModalLabel').html(tname);
+            modal.find('#msg').html(data.html);
+        }
+    });
+});
+
 
 /*$('#viewfileModal').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget) // Button that triggered the modal

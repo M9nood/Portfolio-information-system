@@ -44,7 +44,7 @@ use App\func as f;
                           <tbody>
                           @foreach($deps as $key=> $dep)
                             <tr>
-                              <td>{{$key+1}}</td>
+                              <td class="text-center">{{$key+1}}</td>
                               <td>{{$dep->department_id}}</td>
                               <td>{{$dep->department_name}}</td>
                               <td>{{f::getFacultyName($dep->department_id)}}</td>

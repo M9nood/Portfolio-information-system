@@ -13,7 +13,7 @@ $users = f::userList();
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" ><a href="{{url('/training')}}" ><i class="fa fa-lg fa-table " aria-hidden="true"></i>&nbsp ตารางงาน</a></li>
+          <li role="presentation" ><a href="{{url('/training')}}" ><i class="fa fa-lg fa-table " aria-hidden="true"></i>&nbsp รายการผลงาน</a></li>
           <li role="presentation" ><a href="{{url('/training/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
           <li role="presentation" class="active"><a style="background-color: white;border:1px solid #FF9800;border-bottom:0px;color:#FF9800" href=""  ><i class="fa fa-lg fa-pencil-square-o fa-lg"></i>  &nbsp แก้ไข</a></li>
         </ul>

@@ -16,9 +16,9 @@ class ActionController extends Controller
     //
     protected $client;
     protected $folder_id;
-    protected $rootFolderId = '1DuIEUjTttUWWpBm38wpOpoJH77ACAyHq';
+    protected $rootFolderId ;
     protected $service;
-    protected $root_stp_folder = '13WhT3n7rdjKI0HlJmkbwpVO-BhINQRGb';
+    protected $root_stp_folder;
 
     public function __construct(){
         $this->client = new \Google_Client();
@@ -26,40 +26,9 @@ class ActionController extends Controller
         $this->client->setClientSecret(env('GOOGLE_DRIVE_CLIENT_SECRET'));
         $this->client->refreshToken(env('GOOGLE_DRIVE_REFRESH_TOKEN'));
         $this->service = new \Google_Service_Drive($this->client);
+        $this->rootFolderId = env('GOOGLE_DRIVE_FOLDER_ID');
+        $this->root_stp_folder = env('GOOGLE_DRIVE_ALBUM_ID');
         date_default_timezone_set('Asia/Bangkok');
-    }
-
-    public function upload(Request $request){
-
-      $file = request()->file('file');
-      //dd($file);
-      $folderId = '0Bz-pmuR0EpcvZENCYm82dGRGX3M';
-      $fileMetadata = new \Google_Service_Drive_DriveFile([
-        'name' => $file->getClientOriginalName(),
-        'parents' => array($folderId)
-      ]);
-      $fileget = $this->service->files->create($fileMetadata, array(
-        'data' => file_get_contents($request->file('file')->getRealPath()),
-        'mimeType' => $file->getMimeType(),
-        'uploadType' => 'multipart',
-        'fields' => 'id'));
-      dd($fileget);
-
-    }
-
-    public function testupfile2(){
-
-        $folderId = '0Bz-pmuR0EpcvZENCYm82dGRGX3M';
-        $fileMetadata = new \Google_Service_Drive_DriveFile([
-          'name' => 'Hoo.txt',
-          'parents' => array($folderId)
-        ]);
-        $file = $this->service->files->create($fileMetadata, array(
-          'data' => "Haha you rest success",
-          'mimeType' => 'text/plain',
-          'uploadType' => 'multipart',
-          'fields' => 'id'));
-        printf("File ID: %s\n", $file->id);
     }
 
     /*********************************************************************/

@@ -12,7 +12,7 @@ use App\constantsValue as val;
        <div class="card">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" ><a href="{{url('/training')}}" ><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp ตารางงาน</a></li>
+          <li role="presentation" ><a href="{{url('/training')}}" ><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp รายการผลงาน</a></li>
           <li role="presentation" class="active"><a href="{{url('/training/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
         </ul>
         <div class="panel panel-default" style="margin-top:30px">
@@ -86,8 +86,7 @@ use App\constantsValue as val;
                       <td valign="top" align="center">{{f::dateDBtoBE($task->trn_start)}}</td>
                       <td valign="top" align="center">{{f::dateDBtoBE($task->trn_end)}}</td>
                       <td valign="top" class="text-center"><b>{{f::countCoTeacher($task->coTeacher)}}</b></td>
-                      <td valign="top">{!!f::getFileById($task->trn_id)!!}</td>
-                      <!--<td class="text-center"><a   data-target="#viewfileModal" data-toggle="modal"  data-tid="{{$task->trn_id}}">เอกสาร</a></td>-->
+                      <td valign="top" align="center"><a  data-target="#viewfileModal" data-toggle="modal" data-tname="{{$task->trn_name}}" data-token="{{ csrf_token() }}" data-path="{{url('file/getbyid/'.$task->trn_id)}}"> ดูเอกสาร</a></td>
                     </tr>
                    @endforeach
                    </tbody>
@@ -110,8 +109,26 @@ use App\constantsValue as val;
   </div>
  
 
-<!-- modal view file detail -->
+<!-- modal view all file detail -->
   <div class="modal fade" id="viewAllfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog viewfile-modal-dialog "   role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">เอกสาร</h4>
+      </div>
+      <div class="modal-body viewfile-modal-body" id="scroll">
+      <p id="msg"></p>
+    </div>
+    <hr>
+    <div class="modal-footer" style="border-top:0px">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">ปิด</button>
+      </div>
+  </div>
+</div>
+</div>
+<!-- modal view file detail -->
+<div class="modal fade" id="viewfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog viewfile-modal-dialog "   role="document" >
     <div class="modal-content">
       <div class="modal-header">

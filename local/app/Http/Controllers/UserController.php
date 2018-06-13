@@ -93,9 +93,6 @@ class UserController extends Controller
         $html="";
         $html =$html.'<table class="tb-view-modal" border="0" width="100%">'.
                 '<tr>
-                    <td width="30%" valign="top"><b>รหัสงาน</b></td><td valign="top">'.$task->rsd_id.'</td>
-                </tr>
-                <tr>
                     <td width="30%" valign="top"><b>ชื่อเรื่อง</b></td><td valign="top">'.$task->rsd_name.'</td>
                 </tr>
                 <tr>
@@ -217,9 +214,6 @@ class UserController extends Controller
         $html="";
         $html =$html.'<table class="tb-view-modal" border="0" width="100%">'.
                 '<tr>
-                    <td width="30%" valign="top"><b>รหัสงาน</b></td><td valign="top">'.$task->acd_id.'</td>
-                </tr>
-                <tr>
                     <td width="30%" valign="top"><b>ชื่อตำรา/เอกสาร</b></td><td valign="top">'.$task->acd_name.'</td>
                 </tr>
                 <tr>
@@ -358,9 +352,6 @@ class UserController extends Controller
         $html="";
         $html =$html.'<table class="tb-view-modal" border="0" width="100%">'.
                 '<tr>
-                    <td width="30%" valign="top"><b>รหัสงาน</b></td><td valign="top">'.$task->acp_id.'</td>
-                </tr>
-                <tr>
                     <td width="30%" valign="top"><b>ประเภทงานเผยแพร่ทางวิชาการ</b></td><td valign="top">'.val::ACPtaskCategory($task->acp_task_type).'</td>
                 </tr>
                 <tr>
@@ -454,9 +445,6 @@ class UserController extends Controller
         $html="";
         $html =$html.'<table class="tb-view-modal" border="0" width="100%">'.
                 '<tr>
-                    <td width="30%" valign="top"><b>รหัสงาน</b></td><td valign="top">'.$task->as_id.'</td>
-                </tr>
-                <tr>
                     <td width="30%" valign="top"><b>ชื่องาน</b></td><td valign="top">'.$task->as_name.'</td>
                 </tr>
                 <tr>
@@ -602,9 +590,6 @@ class UserController extends Controller
         $html="";
         $html =$html.'<table class="tb-view-modal" border="0" width="100%">'.
                 '<tr>
-                    <td width="30%" valign="top"><b>รหัสงาน</b></td><td valign="top">'.$task->trn_id.'</td>
-                </tr>
-                <tr>
                     <td width="30%" valign="top"><b>ชื่องาน</b></td><td valign="top">'.$task->trn_name.'</td>
                 </tr>
                 <tr>
@@ -751,6 +736,24 @@ class UserController extends Controller
             $html = $html."<tr><td></td><td>ชื่อเอกสาร</td><td>อ้างอิงโดย</td></tr>";
             for($n=0;$n<count($files);$n++){
                 $html = $html.f::showFileinModal($files[$n],$n);
+            }
+            $html = $html."</table>";  
+        }
+        return response()->json(['html'=>$html]);
+    }
+
+    public function showFileById($taskid){
+        $html = "";
+        $files = self::getFileById($taskid);
+        if(count($files)==0){
+            $html = $html."<div style='margin-top:30px'><center>ไม่มีเอกสาร</center></div>";
+        }
+        else{
+            $html = $html."<div class='pull-right' ><a onclick='openAllFile(".count($files).")'>เปิดทั้งหมด</a><br><br></div>";
+            $html = $html."<table   class='tb-file table-hover'>";
+            $html = $html."<tr><td></td><td>ชื่อเอกสาร</td></tr>";
+            foreach($files as $index => $file){
+                $html = $html.f::showFileinModal2($file->doc_id,$index);
             }
             $html = $html."</table>";  
         }

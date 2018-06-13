@@ -1,6 +1,7 @@
 <?php
 use App\func as f;
 $users = f::userList();
+$yy = f::getYearSemester();
 ?>
 @extends('pages.Research-devinv.index')
 
@@ -14,7 +15,7 @@ $users = f::userList();
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" ><a href="{{url('/research-devinv')}}" ><i class="fa fa-lg fa-table " aria-hidden="true"></i>&nbsp ตารางงาน</a></li>
+          <li role="presentation" ><a href="{{url('/research-devinv')}}" ><i class="fa fa-lg fa-table " aria-hidden="true"></i>&nbsp รายการผลงาน</a></li>
           <li role="presentation" ><a href="{{url('/research-devinv/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
           <li role="presentation" class="active"><a style="background-color: white;border:1px solid #009688;border-bottom:0px;color:#009688" href=""  ><i class="fa fa-lg fa-plus-square fa-lg" aria-hidden="true"></i>  &nbsp เพิ่ม</a></li>
         </ul>
@@ -61,16 +62,20 @@ $users = f::userList();
                         <label for="semester" class="col-sm-3 control-label">ภาคการศึกษาที่ได้รับการอนุมัติ</label>
                         <div style="display:inline-block;margin-top: 5px;" >
                             <div class="col-sm-4">
-                              <select class="form-control drop-box" style="margin-top: 0px;"  name="semester" style="min-width: 30px;">
+                              <select class="form-control drop-box" style="margin-top: 0px;"  name="semester">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                               </select>
                             </div>
-                            <label for="dateEnd" class="col-sm-1 control-label">/</label>
-                            <div class="col-sm-5" style="padding-left: 0px;">
-                                <input type="text" class="form-control input-sm" name="yearSemester" id="yearSemester" placeholder="ปี พ.ศ." >
-                              </div>
+                            <label for="dateEnd" class="col-sm-1 control-label" style="margin-left:10px"> / </label>
+                            <div class="col-sm-5">
+                                <select class="form-control drop-box input-sm" style="margin-top: 0px;" name="yearSemester" id="yearSemester">
+                                  @foreach($yy as $y)
+                                    <option value="{{$y}}" @if((date('Y')+543)==$y) selected @endif>{{$y}}</option>
+                                  @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

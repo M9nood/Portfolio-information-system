@@ -11,7 +11,7 @@ use App\constantsValue as val;
        <div class="card">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp ตารางงาน</a></li>
+          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp รายการผลงาน</a></li>
           <li role="presentation"><a href="{{url('/academic-pub/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
         </ul>
         <!-- Tab panes -->
@@ -35,9 +35,10 @@ use App\constantsValue as val;
                         <tr style="background-color:#8cb3d9">
                           <th id="head_sort" width="20">ปี</th>
                           <th width="60">วันที่ตอบรับ/นำเสนอ</th>
-                          <th width="100">ประเภทงานเผยแพร่</th>
-                          <th width="200">เรื่อง</th>
-                          <th width="70">ตำแหน่ง</th>
+                          <th width="80">ประเภทงานเผยแพร่</th>
+                          <th width="210">เรื่อง</th>
+                          <th width="80">ตำแหน่ง</th>
+                          <th width="70">ฐานงานเผยแพร่</th>
                           <th width="65"></th>
                         </tr>
                       </thead>
@@ -45,11 +46,12 @@ use App\constantsValue as val;
                         @foreach ($datas as $key=> $data)
                           <tr>
                             {{--  <td>{{$key+1}}</td>  --}}
-                            <td>{{f::yearThai($data->acp_proceed_date	)}}</td>
+                            <td class="text-center">{{f::yearThai($data->acp_proceed_date	)}}</td>
                             <td>{{f::dateThai($data->acp_proceed_date	)}}</td>
                             <td>{{val::ACPtaskCategory($data->acp_task_type)}}</td>
                             <td>{{$data->acp_title}}</td>
                             <td>{{val::ACPRole($data->acp_user_role)}}</td>
+                            <td>{{($data->acp_base!='')?$data->acp_base: '-'}}</td>
                             <td style="text-align:center">
                               <a class="btn btn-info btn-xs" style="padding:5px"  title="รายละเอียด"  data-toggle="modal" data-target="#viewModal"  data-id="{{$data->acp_id}}"><i class="fa fa-lg  fa-info-circle"></i></a>
                               <a class="btn btn-warning btn-xs" style="padding:5px"  title="แก้ไข"  href="{{url('/academic-pub/edit/'.$data->acp_id)}}" @if(Auth::user()->id != $data->personnel_id) disabled @endif><i class="fa fa-lg  fa-pencil-square-o"></i></a>

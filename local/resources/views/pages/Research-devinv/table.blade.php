@@ -11,7 +11,7 @@ use App\constantsValue as val;
        <div class="card">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i> &nbspตารางงาน</a></li>
+          <li role="presentation" class="active"><a onClick="refresh()" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-lg fa-table" aria-hidden="true"></i> &nbsp รายการผลงาน</a></li>
           <li role="presentation"><a href="{{url('/research-devinv/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
         </ul>
         <!-- Tab panes -->
@@ -47,7 +47,7 @@ use App\constantsValue as val;
                           @foreach ($datas as $key=> $data)
                             <tr>
                               {{--  <td>{{$key+1}}</td>  --}}
-                              <td>{{f::yearThai($data->rsd_proceed_date	)}}</td>
+                              <td class="text-center">{{f::yearThai($data->rsd_proceed_date	)}}</td>
                               <td>{{f::dateThai($data->rsd_proceed_date	)}}</td>
                               <td>{{$data->rsd_name}}</td>
                               <td>{{val::getRSDNameRole($data->rsd_user_role)}}</td>

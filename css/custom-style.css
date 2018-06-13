@@ -92,8 +92,8 @@
 }
 
 .login-box .title {
-    font-size: 30px;
-    margin-top: 10px;
+    font-size: 22px;
+    margin-top: 50px;
     margin-bottom: 10px;
     font-family: Mitr;
     color: white;
@@ -605,6 +605,9 @@ i#del-album{
 }
 ul.bar-login>li>a.active{
     border-bottom: 3px #66bb6a solid;
+}
+#sampleTable>thead>tr>th{
+    text-align: center
 }
 
 @media screen and (min-width: 768px) {

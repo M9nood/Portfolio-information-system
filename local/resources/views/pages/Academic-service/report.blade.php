@@ -16,7 +16,7 @@ use App\constantsValue as val;
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" ><a href="{{url('/academic-service')}}" ><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp ตารางงาน</a></li>
+          <li role="presentation" ><a href="{{url('/academic-service')}}" ><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp รายการผลงาน</a></li>
           <li role="presentation" class="active"><a href="{{url('/academic-service/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
         </ul>
 
@@ -26,32 +26,34 @@ use App\constantsValue as val;
           <div class="panel-body">
             <div class="col-md-12 dropdown">
               {{ Form::open(['url' => 'academic-service/report', 'method' => 'get']) }}
-              <table border="0" width="60%" align="center">
-                <tr>
-                  <td width="20%" valign="top" style="padding-bottom:10px" ><b>ช่วงการประเมิน</b></td>
-                  <td colspan="4" style="padding-bottom:10px" align="left">
-                        <div class="animated-radio-button">
-                              <label>
-                                <input type="radio" name="time" value="time1" onchange="time1()" @if(isset($_GET['time']) and $_GET['time'] =='time1')checked @endif><span class="label-text"><span class="label-text">รอบที่ 1 ( {{val::getEstimateTime1()}})</span>
-                              </label>
-                        </div>
+                <table border="0" width="100%" align="center">
+                  <tr>
+                    <td class="col-md-4" valign="top" style="text-align:right;padding-right:15px"><b>ช่วงการประเมิน</b></td>
+                    <td class="col-md-5"  style="padding-bottom:10px" align="left">
                           <div class="animated-radio-button">
                                 <label>
-                                    <input type="radio" name="time" value="time2" onchange="time2()" @if(isset($_GET['time']) and $_GET['time'] =='time2')checked @endif><span class="label-text"> รอบที่ 2 ( {{val::getEstimateTime2()}})</span></p>
+                                  <input type="radio" name="time" value="time1" onchange="time1()" @if(isset($_GET['time']) and $_GET['time'] =='time1')checked @endif><span class="label-text"><span class="label-text">รอบที่ 1 ( {{val::getEstimateTime1()}})</span>
                                 </label>
                           </div>
-                  </td>
-                </tr>
-                <tr class="text-center">
-                  <td width="20%" align="left" ><b>ช่วงวันที่</b></td>
-                  <td width="100"><input type="text" id="dateStart" name="startTime" class="datepicker" data-date-format="mm/dd/yyyy"  required></td>
-                  <td width="50"  >ถึง</td>
-                  <td width="100" ><input type="text" id="dateEnd" name="endTime" class="datepicker" data-date-format="mm/dd/yyyy" required></td>
-                  <td width="150">
-                    <button class="btn btn-primary"  >ดูรายงาน</button>
-                  </td>
-                <tr>
-              </table>
+                            <div class="animated-radio-button">
+                                  <label>
+                                      <input type="radio" name="time" value="time2" onchange="time2()" @if(isset($_GET['time']) and $_GET['time'] =='time2')checked @endif><span class="label-text"> รอบที่ 2 ( {{val::getEstimateTime2()}})</span></p>
+                                  </label>
+                            </div>
+                    </td>
+                    <td  class="col-md-3"></td>
+                  </tr>
+                  <tr>
+                      <td class="col-md-3" style="text-align:right;padding-right:15px" ><b>ช่วงวันที่</b></td>
+                      <td class="col-md-6">
+                        <input type="text" id="dateStart" name="startTime" class="datepicker" data-date-format="mm/dd/yyyy"  required>
+                        <span style="padding:0px 5px">ถึง</span>
+                        <input type="text" id="dateEnd" name="endTime" class="datepicker" data-date-format="mm/dd/yyyy" required>
+                        <button class="btn btn-primary"  >ดูรายงาน</button>
+                      </td>
+                      <td  class="col-md-3"></td>
+                    <tr>
+                </table>
               {{ Form::close() }}
               </div>   
           </div>
@@ -100,7 +102,7 @@ use App\constantsValue as val;
                     <td valign="top" style="border:0px!important"></td>
                     <td valign="top" style="line-height: 1;">{{($i+1).".".$sub}} {{$task->as_name}}</td>
                     <td valign="top" align="center" >{{f::dateDBtoBE($task->as_start_date)}}</td>
-                    <td valign="top" > {!!f::getFileById($task->as_id)!!}</td>
+                    <td valign="top" align="center"><a  data-target="#viewfileModal" data-toggle="modal" data-tname="{{$task->as_name}}" data-token="{{ csrf_token() }}" data-path="{{url('file/getbyid/'.$task->as_id)}}"> ดูเอกสาร</a></td>
                   </tr>
                 @endif
               @endforeach
@@ -130,8 +132,27 @@ use App\constantsValue as val;
      </div>
   </div>
 
-<!-- modal view file detail -->
+<!-- modal view all file detail -->
   <div class="modal fade" id="viewAllfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog viewfile-modal-dialog "   role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">เอกสาร</h4>
+      </div>
+      <div class="modal-body viewfile-modal-body" id="scroll">
+      <p id="msg"></p>
+    </div>
+    <hr>
+    <div class="modal-footer" style="border-top:0px">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">ปิด</button>
+      </div>
+  </div>
+</div>
+</div>
+
+<!-- modal view file detail -->
+<div class="modal fade" id="viewfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog viewfile-modal-dialog "   role="document" >
     <div class="modal-content">
       <div class="modal-header">

@@ -1,6 +1,7 @@
 <?php
 use App\func as f;
 $users = f::userList();
+$yy = f::getYearSemester();
 ?>
 @extends('pages.Research-devinv.index')
 
@@ -13,7 +14,7 @@ $users = f::userList();
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" ><a href="{{url('/research-devinv')}}" ><i class="fa fa-lg fa-table " aria-hidden="true"></i>&nbsp ตารางงาน</a></li>
+          <li role="presentation" ><a href="{{url('/research-devinv')}}" ><i class="fa fa-lg fa-table " aria-hidden="true"></i>&nbsp รายการผลงาน</a></li>
           <li role="presentation" ><a href="{{url('/research-devinv/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>
           <li role="presentation" class="active"><a style="background-color: white;border:1px solid #FF9800;border-bottom:0px;color:#FF9800" href=""  ><i class="fa fa-lg fa-pencil-square-o fa-lg"></i>  &nbsp แก้ไข</a></li>
         </ul>
@@ -66,10 +67,14 @@ $users = f::userList();
                                 <option value="3" @if (substr($task->rsd_semester,0,1)=="3") selected @endif>3</option>
                               </select>
                             </div>
-                            <label for="dateEnd" class="col-sm-1 control-label">/</label>
-                            <div class="col-sm-5" style="padding-left: 0px;">
-                                <input type="text" class="form-control input-sm" name="yearSemester" id="yearSemester" placeholder="ปี ex. 2560" value="{{substr($task->rsd_semester,2)}}">
-                              </div>
+                            <label for="dateEnd" class="col-sm-1 control-label" style="margin-left:10px"> / </label>
+                            <div class="col-sm-5">
+                                <select class="form-control drop-box input-sm" style="margin-top: 0px;" name="yearSemester" id="yearSemester">
+                                  @foreach($yy as $y)
+                                    <option value="{{$y}}" @if(substr($task->rsd_semester,2)==$y) selected @endif>{{$y}}</option>
+                                  @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

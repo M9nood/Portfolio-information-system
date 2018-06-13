@@ -319,7 +319,14 @@ class func extends Model
         $file = DB::table('documents')
                 ->where('doc_id',$fileId)
                 ->first();
-        return "<tr id='showfile".$order."' onClick='window.open(\"https://drive.google.com/open?id=".$file->doc_id."\")'  ><td class='text-center'>".self::getImgFileType($file->doc_type)."</td><td>".$file->doc_name."</td><td>".self::getTaskName($file->task_id)."</td></tr>";
+        return "<tr id='showfile".$order."' onClick='window.open(\"https://drive.google.com/open?id=".$file->doc_id."\")'  ><td class='text-center'>".self::getImgFileType($file->doc_type)."</td><td>".substr($file->doc_name,11)."</td><td>".self::getTaskName($file->task_id)."</td></tr>";
+    }
+
+    public static function showFileinModal2($fileId,$order){
+        $file = DB::table('documents')
+                ->where('doc_id',$fileId)
+                ->first();
+        return "<tr id='showfile".$order."' onClick='window.open(\"https://drive.google.com/open?id=".$file->doc_id."\")'  ><td class='text-center'>".self::getImgFileType($file->doc_type)."</td><td>".substr($file->doc_name,11)."</td></tr>";
     }
 
     public static function getTaskName($task_id){
@@ -390,9 +397,15 @@ class func extends Model
         $table =val::getTableAttr();
         $arr =array();
         foreach($table as $key => $tb){
-            if($tb['table']!="student_portfolio"){
-            $cnt = DB::table($tb['table'])->where('personnel_id',$uid)->count();
-            array_push($arr,$cnt);
+            if($tb['table']=="training"){
+                $cnt = DB::table($tb['table'])->where('coTeacher','like','%'.$uid.'%')->count();
+                array_push($arr,$cnt);
+            }
+            elseif($tb['table']=="student_portfolio"){
+            }
+            else{
+                $cnt = DB::table($tb['table'])->where('personnel_id',$uid)->count();
+                array_push($arr,$cnt);
             }
         }
         return $arr;
@@ -562,5 +575,15 @@ class func extends Model
     public static function isOfficer(){
         if(Auth::user()->user_level=="support" and Auth::user()->isadm_stp == "yes") return true;
         else return false;
+    }
+
+    public static function getYearSemester(){
+        $y = date("Y")+543;
+        $ymin = $y-5;
+        $yArr = array();
+        for($i=0;$i<10;$i++){
+            $yArr[$i]= $ymin+$i;
+        }
+        return $yArr;
     }
 }

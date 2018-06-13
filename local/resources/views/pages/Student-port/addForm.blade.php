@@ -12,7 +12,7 @@ $users = f::userList();
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" ><a href="{{url('/std-portfolio')}}" ><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp ตารางผลงานนักศึกษา</a></li>
+          <li role="presentation" ><a href="{{url('/std-portfolio')}}" ><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp รายการผลงานนักศึกษา</a></li>
           <li role="presentation"><a href="{{url('/std-portfolio/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>  
           <li role="presentation" class="active"><a style="background-color: white;border:1px solid #009688;border-bottom:0px;color:#009688" href=""  ><i class="fa fa-plus-square fa-lg" aria-hidden="true"></i>  &nbsp เพิ่ม</a></li>
         </ul>
@@ -54,6 +54,7 @@ $users = f::userList();
                         <div class="row" id="text-std">
                           <div class="col-sm-7">
                             <input type="text" class="form-control input-sm" name="student" id="student" >
+                            <span>(ตัวอย่าง : นายระบบ จัดการ)</span>
                           </div>
                           <div class="col-sm-2">
                               <label class="btn btn-default" onclick="addstdName()">เพิ่ม</label>
@@ -67,6 +68,7 @@ $users = f::userList();
                           <div class="col-sm-7">
                             <input type="file" class="form-control "  name="csv" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"  >
                             <span><a data-target="#importExample" data-toggle="modal"  >ตัวอย่างการนำเข้า</a></span>
+                            <span style="padding-left:10px"><a href="{{url('asset/student_list_template.csv')}}" >ดาวน์โหลดเทมเพลต</a></span>
                           </div>
                           <div class="col-sm-3" valign="middle" >
                             <label class="btn btn-success" onclick="showInputStdBtn()">เพิ่มรายชื่อ</label>

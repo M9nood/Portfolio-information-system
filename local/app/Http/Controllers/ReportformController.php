@@ -42,25 +42,27 @@ class ReportformController extends Controller
                         '<table border="1" cellpadding="2" width="100%" class="tb-report">
                             <tr style="background-color: #99b3e6;">
                                 <th width="8%" style="vertical-align:middle;text-align:center;padding:8px"> <br><br>ลำดับที่</th>'.
-                                '<th width="49%" style="text-align:center"> <br><br>งานเข้ารับฝึกอบรม</th>'.
-                                '<th width="16%" style="text-align:center"> <br><br>วันที่เริ่มอบรม</th>
-                                <th width="16%" style="text-align:center"> <br><br>วันที่สิ้นสุด</th>
+                                '<th width="42%" style="text-align:center"> <br><br>งานเข้ารับฝึกอบรม</th>'.
+                                '<th width="14%" style="text-align:center"> <br><br>วันที่เริ่มอบรม</th>
+                                <th width="14%" style="text-align:center"> <br><br>วันที่สิ้นสุด</th>
                                 <th width="11%" style="text-align:center"> จำนวน <br>บุคลากรที่<br>เข้าร่วม</th>
+                                <th width="11%" style="vertical-align:middle;text-align:center">ชั่วโมง<br>ภาระงาน</th>
                             </tr>';
                             foreach( $tasks as $key => $task ){
             $html =$html.'<tr>
                             <th width="8%" style="text-align:center;padding:8px">'.($key+1).'</th>
-                            <th width="49%" style="text-align:laft"> '.$task->trn_name.'</th>
-                            <th width="16%" style="text-align:center"> '.f::dateDBtoBE($task->trn_start).'</th>
-                            <th width="16%" style="text-align:center"> '.f::dateDBtoBE($task->trn_end).'</th>
+                            <th width="42%" style="text-align:laft"> '.$task->trn_name.'</th>
+                            <th width="14%" style="text-align:center"> '.f::dateDBtoBE($task->trn_start).'</th>
+                            <th width="14%" style="text-align:center"> '.f::dateDBtoBE($task->trn_end).'</th>
                             <th width="11%" style="text-align:center"> '.f::countCoTeacher($task->coTeacher).'</th>
+                            <th width="11%" style="text-align:center"></th>  
                         </tr>';
                             }
             $html =$html.'</table>';
             //echo strlen($html)."<br>";
             $html = preg_replace('#(?(?!<!--.*?-->)(?: {2,}|[\r\n\t]+)|(<!--.*?-->))#s', '$1', $html);
             //echo $html;
-           $this->pdf->setHeaderContent('ผลงานนักศึกษา');
+           $this->pdf->setHeaderContent('งานเข้ารับฝึกอบรม');
            $this->pdf->createPDF($html);
     }
 
@@ -87,16 +89,18 @@ class ReportformController extends Controller
                 '<table border="1" cellpadding="3" width="100%" class="tb-report" >
                 <tr style="background-color: #99b3e6;">
                     <th width="8%" style="vertical-align:middle;text-align:center">ลำดับที่</th>
-                    <th width="72%" style="vertical-align:middle;text-align:center">งานบริการวิชาการและอื่นๆ</th>
-                    <th width="20%" style="vertical-align:middle;text-align:center">วันที่ดำเนินการ</th>
+                    <th width="68%" style="vertical-align:middle;text-align:center">งานบริการวิชาการและอื่นๆ</th>
+                    <th width="14%" style="vertical-align:middle;text-align:center">วันที่<br>ดำเนินการ</th>
+                    <th width="11%" style="vertical-align:middle;text-align:center">ชั่วโมง<br>ภาระงาน</th>
                 </tr>';
             for($i =0;$i<count($typeAS);$i++){
             $isFirst = true;$sub = 0; 
              if($isFirst){ 
                 $html=$html.'<tr valign="top">
                     <th width="8%" style="vertical-align:middle;text-align:center"> '.($i+1).'</th>
-                    <th width="72%" style="vertical-align:middle;line-height: 1;">'.$typeAS[$i].'</th>
-                    <th width="20%" style="vertical-align:middle;text-align:center"></th>
+                    <th width="68%" style="vertical-align:middle;line-height: 1;">'.$typeAS[$i].'</th>
+                    <th width="14%" style="vertical-align:middle;text-align:center"></th>
+                    <th width="11%"></th>
                     </tr>';
               $isFirst = false; 
             }
@@ -152,13 +156,14 @@ class ReportformController extends Controller
                       $isFirst = true;$sub = 0;
                         if($isFirst){ 
         $html=$html.          '<tr style="background-color: #99b3e6;" >
-                                <td colspan="4" style="padding-left:10px"> '.($i+1).". ".$rsd_cat[$i]['name'].'</td>
+                                <td colspan="5" style="padding-left:10px"> '.($i+1).". ".$rsd_cat[$i]['name'].'</td>
                               </tr>
                               <tr style="text-align:center;" >
-                                  <td width="8%">ลำดับที่</td>
-                                  <td width="63%">'.$rsd_cat[$i]['full'].'</td>
-                                  <td width="11%" >ภาคที่ได้รับการอนุมัติ</td>
-                                  <td width="18%">วันที่ดำเนินการ</td>
+                                  <td width="7%">ลำดับที่</td>
+                                  <td width="59%">'.$rsd_cat[$i]['full'].'</td>
+                                  <td width="11%" >ภาคที่ได้รับ<br>การอนุมัติ</td>
+                                  <td width="13%" style="vertical-align:middle;text-align:center">วันที่<br>ดำเนินการ</td>
+                                  <td width="10%" style="vertical-align:middle;text-align:center">ชั่วโมง<br>ภาระงาน</td>
                               </tr>';
                         $isFirst = false; 
                         }
@@ -170,6 +175,7 @@ class ReportformController extends Controller
                               <td valign="top" style="line-height: 1;"> เรื่อง '.$task->rsd_name.'<br> '.val::getRSDNameRole($task->rsd_user_role).'</td>
                               <td valign="top" align="center" >'.$task->rsd_semester.'</td>
                               <td valign="top" align="center" >'.f::dateDBtoBE($task->rsd_proceed_date).'</td>
+                              <td></td>
                             </tr>';
                           }
                         }
@@ -206,18 +212,20 @@ class ReportformController extends Controller
 
         $html=$html.       '<table border="1" cellpadding="2"  width="100%" class="tb-report table-hover">
                             <tr style="background-color: #99b3e6;">
-                            <td width="7%"  align="center">ลำดับที่</td>
-                            <td width="58%" align="center">งานพัฒนาวิชาการ แต่ละเรื่อง<br>ไม่เกิน 3 ภาคการศึกษาปกติ</td>
-                            <td width="11%" align="center">ภาคที่ได้รับการอนุมัติ</td>
-                            <td width="9%" align="center">จำนวน หน่วยกิต/สัปดาห์</td>
-                            <td width="16%" align="center">วันที่ดำเนินการ</td>
+                            <td width="6%"  align="center">ลำดับ<br>ที่</td>
+                            <td width="54%" align="center">งานพัฒนาวิชาการ แต่ละเรื่อง<br>ไม่เกิน 3 ภาคการศึกษาปกติ</td>
+                            <td width="10%" align="center">ภาค<br>ที่ได้รับ<br>การอนุมัติ</td>
+                            <td width="9%" align="center">จำนวน<br>หน่วยกิต<br>/สัปดาห์</td>
+                            <td width="13%" align="center">วันที่<br>ดำเนินการ</td>
+                            <td width="10%" style="vertical-align:middle;text-align:center">ชั่วโมง<br>ภาระงาน</td>
                             </tr>';
                             for($i =0;$i<count($acd_cat);$i++){
                                 $isFirst = true;$sub = 0; 
                                 if($isFirst) {
         $html=$html.                    '<tr >
-                                        <td valign="top" align="center">'.($i+1).'</td>
+                                        <td valign="top" align="center"><b>'.($i+1).'</b></td>
                                         <td valign="top" style="line-height: 1;"><b>'.$acd_cat[$i+1]["name"].'</b></td>
+                                        <td valign="top" ></td>
                                         <td valign="top" ></td>
                                         <td valign="top" ></td>
                                         <td valign="top" ></td>
@@ -233,6 +241,7 @@ class ReportformController extends Controller
                                         <td valign="top" align="center" style="line-height: 1;">'.$task->acd_semester.'</td>
                                         <td valign="top" align="center" style="line-height: 1;">'. $task->acd_creditPerWeek	.'</td>
                                         <td valign="top" align="center" style="line-height: 1;" >'.f::dateDBtoBE($task->acd_proceed_date).'</td>
+                                        <td valign="top" ></td>
                                     </tr>';
                                     }
                                 }
@@ -272,16 +281,18 @@ class ReportformController extends Controller
         $html=$html.'<table border="1" cellpadding="2"   width="100%" class="tb-report table-hover">
                         <tr style="background-color: #99b3e6;">
                             <td width="8%" align="center">ลำดับที่</td>
-                            <td width="72%" align="center">งานเผยแพร่ผลงานทางวิชาการ</td>
-                            <td width="20%" align="center">วันที่ตอบรับ/นำเสนอ</td>
+                            <td width="68%" align="center">งานเผยแพร่ผลงานทางวิชาการ</td>
+                            <td width="14%" align="center">วันที่ตอบรับ<br>/นำเสนอ</td>
+                            <td width="10%" style="vertical-align:middle;text-align:center">ชั่วโมง<br>ภาระงาน</td>
                         </tr>';
                         for($i =0;$i<count($acp_cat);$i++) {
                              $isFirst = true;$sub = 0; 
                              if($isFirst) { 
         $html=$html.                '<tr>
-                                      <td valign="top" align="center">'.($i+1).'.</td>
-                                      <td valign="top" > '.$acp_cat[$i].'</td>
+                                      <td valign="top" align="center"><b>'.($i+1).'.</b></td>
+                                      <td valign="top" ><b> '.$acp_cat[$i].'</b></td>
                                       <td valign="top" align="center"></td>
+                                      <td></td>
                                     </tr>';
                                 $isFirst = false; 
                               }
@@ -296,6 +307,7 @@ class ReportformController extends Controller
                                       if($task->acp_user_role!==99) $html=$html.'<br> - '.val::ACPRole($task->acp_user_role); 
         $html=$html.                '</td>
                                     <td valign="top" align="center">'.f::dateDBtoBE($task->acp_proceed_date).'</td>
+                                    <td></td>
                                   </tr>';
                                 }
                               }
@@ -304,6 +316,7 @@ class ReportformController extends Controller
                                   <td height="20" valign="top" colspan="2"></td>
                                   <td valign="top"></td>
                                   <td valign="top"></td>
+                                  <td></td>
                                 </tr>';
                               }
                            }

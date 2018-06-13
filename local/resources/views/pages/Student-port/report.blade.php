@@ -19,7 +19,7 @@ use App\constantsValue as val;
   
      <!-- Nav tabs -->
      <ul class="nav nav-tabs" role="tablist">
-       <li role="presentation" ><a href="{{url('/std-portfolio')}}" aria-controls="home" ><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp ตารางผลงานนักศึกษา</a></li>
+       <li role="presentation" ><a href="{{url('/std-portfolio')}}" aria-controls="home" ><i class="fa fa-lg fa-table" aria-hidden="true"></i>&nbsp รายการผลงานนักศึกษา</a></li>
        <li role="presentation" class="active"><a href="{{url('/std-portfolio/report')}}"  ><i class="fa fa-lg fa-file-text" aria-hidden="true"></i>&nbsp ดูรายงาน</a></li>  
      </ul>
         
@@ -29,18 +29,18 @@ use App\constantsValue as val;
         <div class="panel-body">
           <div class="col-md-12 ">
             {{ Form::open(['url' => 'std-portfolio/report', 'method' => 'get']) }}
-            <table border="0" width="60%" align="center" >
+            <table border="0" width="100%" align="center" >
                 <tr>
-                  <td  width="25%"  style="text-align:right;padding-right:15px;padding-bottom:10px"><b>คณะ</b></td>
-                  <td  colspan="3" style="padding-bottom:10px" align="left">
+                  <td  class="col-md-3" style="text-align:right;padding-right:15px;padding-bottom:10px"><b>คณะ</b></td>
+                  <td  class="col-md-3" style="padding-bottom:10px" align="left">
                     <b>{{$fac->faculty_name}}</b>
                     <input type="hidden" name="fac" value="{{$fac->faculty_id}}">
                   </td>
-                  <td></td>
+                  <td class="col-md-3"></td>
                 </tr>
                 <tr>
-                  <td  width="25%"  style="text-align:right;padding-right:15px;padding-bottom:10px"><b>ภาควิชา</b></td>
-                  <td  colspan="3" style="padding-bottom:10px" align="left">
+                  <td  class="col-md-3"  style="text-align:right;padding-right:15px;padding-bottom:10px"><b>ภาควิชา</b></td>
+                  <td  class="col-md-6" style="padding-bottom:10px" align="left">
                     @if(Auth::user()->user_level == "dean")
                     <select class="form-control drop-box"  name="dep" >
                           <option value="">--- เลือกภาควิชา ---</option>
@@ -54,11 +54,11 @@ use App\constantsValue as val;
                       </select>
                     @endif
                   </td>
-                  <td></td>
+                  <td class="col-md-3"></td>
                 </tr>
                 <tr style="padding-bottom:10px">
-                  <td width="25%" align="right" valign="top" style="padding-bottom:10px;padding-right:15px" ><b>ช่วงการประเมิน</b></td>
-                  <td colspan="4"  align="left">
+                  <td class="col-md-3" align="right" valign="top" style="padding-bottom:10px;padding-right:15px" ><b>ช่วงการประเมิน</b></td>
+                  <td class="col-md-6"  align="left">
                         <div class="animated-radio-button">
                               <label>
                                 <input type="radio" name="time" value="time1" onchange="time1()" @if(isset($_GET['time']) and $_GET['time'] =='time1')checked @endif><span class="label-text"><span class="label-text">รอบที่ 1 ( {{val::getEstimateTime1()}})</span>
@@ -70,14 +70,17 @@ use App\constantsValue as val;
                                 </label>
                           </div>
                   </td>
+                  <td class="col-md-3"></td>
                 </tr>
-                <tr >
-                  <td width="25%" style="text-align:right;padding-right:15px" ><b>ช่วงวันที่</b></td>
-                  <td ><input type="text" id="dateStart" name="startTime" class="datepicker" data-date-format="mm/dd/yyyy"  required></td>
-                  <td style="padding-right: 15px;">ถึง</td>
-                  <td ><input type="text" id="dateEnd" name="endTime" class="datepicker" data-date-format="mm/dd/yyyy" required></td>
-                  <td >
-                    <button class="btn btn-primary"  >ดูรายงาน</button>
+                <tr>
+                  <td class="col-md-3" style="text-align:right;padding-right:15px" ><b>ช่วงวันที่</b></td>
+                  <td class="col-md-6"><input type="text" id="dateStart" name="startTime" class="datepicker" data-date-format="mm/dd/yyyy"  required>
+                  <span style="padding:0px 5px">ถึง</span>
+                  <input type="text" id="dateEnd" name="endTime" class="datepicker" data-date-format="mm/dd/yyyy" required>
+                  <button class="btn btn-primary"  >ดูรายงาน</button>  
+                </td>
+                  <td class="col-md-3">
+                    
                   </td>
                 <tr>
               </table>

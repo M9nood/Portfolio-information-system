@@ -43,7 +43,7 @@ use App\func as f;
                           <tbody>
                           @foreach($fac as $key=> $fac)
                             <tr>
-                              <td>{{$key+1}}</td>
+                              <td class="text-center">{{$key+1}}</td>
                               <td>{{$fac->faculty_id}}</td>
                               <td>{{$fac->faculty_name}}</td>
                               <td class="text-center">
